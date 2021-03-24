@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-
+import 'package:flutter/material.dart';
+import 'package:flutter_new_app_for_web/second.dart';
 
 class NewScreen extends StatelessWidget {
   @override
@@ -34,11 +32,39 @@ class AddData extends StatelessWidget {
           return ListView(
             children: snapshot.data.docs.map((document) {
               return Container(
-                child: Column(
-                  children: [
-                    Center(child: Text(document['text'])),
-
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SecondScreen(text: document['title'])));
+                  },
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Text(
+                          document['title'],
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight:
+                                  MediaQuery.of(context).size.width * 0.4,
+                              maxWidth:
+                                  MediaQuery.of(context).size.height * 0.9,
+                            ),
+                            child: Text(
+                              document['text'],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
                 ),
               );
             }).toList(),

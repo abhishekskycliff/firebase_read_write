@@ -44,7 +44,7 @@ class AddData extends StatelessWidget {
         onPressed: () {
           FirebaseFirestore.instance
               .collection('data')
-              .add({'text': 'https://i.stack.imgur.com/gqKFh.png'});
+              .add({'text': 'its my Data', 'title': 'add the data here'});
         },
       ),
     );
